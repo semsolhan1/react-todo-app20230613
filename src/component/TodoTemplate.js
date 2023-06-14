@@ -67,6 +67,16 @@ const TodoTemplate = () => {
 
     setTodos([...todos, newTodo]);
   }
+  
+  //할 일 삭제 처리 함수
+  const removeTodo = id => {
+    // console.log(`삭제대상 id: ${id}`);
+    
+    //주어진 배열의 값들을 순회하여 조건에 맞는 요소들만 모아서
+    //새로운 배열로 리턴해 주는 함수.
+    setTodos(todos.filter(todo => todo.id !== id));
+    // setTodos(todos.useEffect(todo => todo.id !== id)); (x)
+  };
 
   useEffect(() => {
     console.log(todos);
@@ -76,7 +86,7 @@ const TodoTemplate = () => {
   return (
     <div className='TodoTemplate'>
         <TodoHeader />
-        <TodoMain todoList={todos} />
+        <TodoMain todoList={todos} remove={removeTodo} />
         <TodoInput addTodo={addTodo} />
     </div>
   );
