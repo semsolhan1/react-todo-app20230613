@@ -13,7 +13,7 @@ const TodoItem = ({item, remove, check}) => {
         
         <div 
           className={cn('check-circle', {active: done})}
-          onClick={() => check(id)}
+          onClick={() => check(id, done)}
         >
             { done && <MdDone /> }
         </div>
