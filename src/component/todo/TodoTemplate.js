@@ -14,10 +14,10 @@ const TodoTemplate = () => {
   //todos 벼열을 상태 관리
   const [todos, setTodos] = useState([]);
   // id값 시퀌스 생성함수
-  const makeNewId = () => {
-    if(todos.length === 0) return 1;
-    return todos[todos.length - 1].id + 1;
-  }
+  // const makeNewId = () => {
+  //   if(todos.length === 0) return 1;
+  //   return todos[todos.length - 1].id + 1;
+  // }
 
   //todoInput에게 todoText를 받아오는 함수
   //자식 컴포넌트가 부모 컴포넌트에게 데이터를전달할 때는
