@@ -14,8 +14,8 @@ function App() {
       
       <Routes>
         <Route path='/' element={ <TodoTemplate /> } />
-        <Route path='/join' element={ <Join /> } />
         <Route path='/login' element={ <Login /> } />
+        <Route path='/join' element={ <Join /> } />
       </Routes>
 
       <Footer />

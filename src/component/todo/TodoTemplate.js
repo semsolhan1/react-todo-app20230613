@@ -4,12 +4,15 @@ import TodoMain from './TodoMain';
 import TodoInput from './TodoInput';
 
 import './scss/TodoTemplate.scss';
+
+import { API_BASE_URL as BASE, TODO } from '../../config/host-config';
+
 // import { useScrollTrigger } from '@mui/material';
 
 const TodoTemplate = () => {
   
   // 서버에 할일 목록(json)을 요청(fetch)해서 받아와야 함.
-  const API_BASE_URL = 'http://localhost:8181/api/todos';
+  const API_BASE_URL = BASE + TODO;
 
   //todos 벼열을 상태 관리
   const [todos, setTodos] = useState([]);
