@@ -3,9 +3,14 @@ import React from 'react'
 import {Button, Container, Grid,
     TextField, Typography, Link} from "@mui/material";
 
+import { useNavigate } from 'react-router-dom';
+
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 
+
 const Login = () => {
+
+    const redirection = useNavigate();
 
     const REQUEST_URL = BASE + USER + '/signin';
 
@@ -36,9 +41,26 @@ const Login = () => {
             return;
         }
 
-        const json = await res.json();
-        console.log(json);
+        const { token, username, email, role } = await res.json();
+        // console.log(json);
 
+        
+        
+        
+        //json에 담긴 인증정보를 클라이언트에 보관
+        //1. 로컬 스토리지 - 브라우저가 종료되어도 보관됨.
+        //2. 세션 스토리지 - 브라우저가 종료되면 사라짐.
+        //sessionStorage.setItem('', );
+        //localStorage.setItem('저장할 데이터 이름', 저장할 데이터의 값);
+        localStorage.setItem('ACCESS_TOKEN', token);
+        localStorage.setItem('LOGIN_USERNAME', username);
+        localStorage.setItem('USER_ROLE', role);
+        
+        
+        
+        
+        //홈으로 리다이렉트
+        redirection('/');
 
         // fetch(REQUEST_URL, {
         //    

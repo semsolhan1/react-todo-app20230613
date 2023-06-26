@@ -6,6 +6,7 @@ import TodoInput from './TodoInput';
 import './scss/TodoTemplate.scss';
 
 import { API_BASE_URL as BASE, TODO } from '../../config/host-config';
+import { Token } from '@mui/icons-material';
 
 // import { useScrollTrigger } from '@mui/material';
 
@@ -89,7 +90,9 @@ const TodoTemplate = () => {
 // setTodos(todos.map(todo => todo.id === id ? {...todo, done: !todo.done} : todo));
 fetch(API_BASE_URL, {
   method : 'PUT',
-  headers: {'content-type' : 'application/json'},
+  headers: {
+    'content-type' : 'application/json'
+  },
   body : JSON.stringify({
     done : !done,
     id : id
