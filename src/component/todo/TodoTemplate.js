@@ -25,7 +25,7 @@ const TodoTemplate = () => {
 
   //요청 헤더 설정
   const requestHeader = {
-    'conent-type' : 'application/json',
+    'content-type' : 'application/json',
     'Authorization' : 'Bearer ' + token
   };
   

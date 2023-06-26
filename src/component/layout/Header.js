@@ -14,7 +14,7 @@ const Header = () => {
 
     const [userInfo, setUserInfo] = useState({});
     
-    const { token, username, role } = userInfo;
+    const { token, userName, role } = userInfo;
 
 //  로그아웃 핸들러
 const logoutHandler = e => {
@@ -47,7 +47,7 @@ const logoutHandler = e => {
                             <Typography variant="h4">
                                 {
                                     isLogin()
-                                    ? username + '님'
+                                    ? userName + '님'
                                     :'오늘'
                                 }
                                 의 할일

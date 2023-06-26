@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Button, Container, Grid,
-    TextField, Typography, Link} from "@mui/material";
+    TextField, Typography} from "@mui/material";
 
 import { useNavigate } from 'react-router-dom';
 
@@ -41,8 +41,11 @@ const Login = () => {
             return;
         }
 
-        const { token, username, email, role } = await res.json();
-        // console.log(json);
+        const { token, userName, email, role } = await res.json();
+        console.log(token);
+        console.log(userName);
+        console.log(email);
+        console.log(role);
 
         
         
@@ -53,7 +56,7 @@ const Login = () => {
         //sessionStorage.setItem('', );
         //localStorage.setItem('저장할 데이터 이름', 저장할 데이터의 값);
         localStorage.setItem('ACCESS_TOKEN', token);
-        localStorage.setItem('LOGIN_USERNAME', username);
+        localStorage.setItem('LOGIN_USERNAME', userName);
         localStorage.setItem('USER_ROLE', role);
         
         
@@ -139,6 +142,7 @@ const Login = () => {
                             fullWidth
                             variant="contained"
                             color="primary"
+                            onClick={loginHandler}
                         >
                             로그인
                         </Button>
