@@ -14,7 +14,13 @@ const Login = () => {
     const redirection = useNavigate();
 
     //AuthContext에서 onLogin 함수를가져옵니다.
-    const { onLogin } = useContext(AuthContext);
+    const { onLogin, isLoggedIn } = useContext(AuthContext);
+
+    if(isLoggedIn) {
+        alert('이미 로그인 중입니다.');
+        window.history.back();
+        return;
+    }
 
     const REQUEST_URL = BASE + USER + '/signin';
 
