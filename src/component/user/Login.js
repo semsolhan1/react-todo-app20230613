@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import {Button, Container, Grid,
     TextField, Typography} from "@mui/material";
@@ -6,11 +6,15 @@ import {Button, Container, Grid,
 import { useNavigate } from 'react-router-dom';
 
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
+import AuthContext from '../../util/Authcontext';
 
 
 const Login = () => {
 
     const redirection = useNavigate();
+
+    //AuthContext에서 onLogin 함수를가져옵니다.
+    const { onLogin } = useContext(AuthContext);
 
     const REQUEST_URL = BASE + USER + '/signin';
 
@@ -42,10 +46,10 @@ const Login = () => {
         }
 
         const { token, userName, email, role } = await res.json();
-        console.log(token);
-        console.log(userName);
-        console.log(email);
-        console.log(role);
+        // console.log(token);
+        // console.log(userName);
+        // console.log(email);
+        // console.log(role);
 
         
         
@@ -59,7 +63,8 @@ const Login = () => {
         localStorage.setItem('LOGIN_USERNAME', userName);
         localStorage.setItem('USER_ROLE', role);
         
-        
+        // Context API를 사용하여 로그인 상태를 업데이트합니다.
+        onLogin(token, userName, role);
         
         
         //홈으로 리다이렉트
