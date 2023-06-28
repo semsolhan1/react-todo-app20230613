@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
 import {Button, Container, Grid,
     TextField, Typography} from "@mui/material";
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 import AuthContext from '../../util/Authcontext';
+import CustomSnackBar from '../layout/CustomSnackBar';
 
 
 const Login = () => {
@@ -16,11 +17,16 @@ const Login = () => {
     //AuthContext에서 onLogin 함수를가져옵니다.
     const { onLogin, isLoggedIn } = useContext(AuthContext);
 
-    if(isLoggedIn) {
-        alert('이미 로그인 중입니다.');
-        window.history.back();
-        return;
-    }
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        if(isLoggedIn) {
+            setOpen(true);
+            setTimeout(() => {
+                redirection('/');
+            }, 3000)
+        }
+    }, [isLoggedIn, redirection]);
 
     const REQUEST_URL = BASE + USER + '/signin';
 
@@ -56,18 +62,6 @@ const Login = () => {
         // console.log(userName);
         // console.log(email);
         // console.log(role);
-
-        
-        
-        
-        //json에 담긴 인증정보를 클라이언트에 보관
-        //1. 로컬 스토리지 - 브라우저가 종료되어도 보관됨.
-        //2. 세션 스토리지 - 브라우저가 종료되면 사라짐.
-        //sessionStorage.setItem('', );
-        //localStorage.setItem('저장할 데이터 이름', 저장할 데이터의 값);
-        localStorage.setItem('ACCESS_TOKEN', token);
-        localStorage.setItem('LOGIN_USERNAME', userName);
-        localStorage.setItem('USER_ROLE', role);
         
         // Context API를 사용하여 로그인 상태를 업데이트합니다.
         onLogin(token, userName, role);
@@ -112,55 +106,60 @@ const Login = () => {
     }
 
     return (
-        <Container component="main" maxWidth="xs" style={{ margin: "200px auto" }}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Typography component="h1" variant="h5">
-                        로그인
-                    </Typography>
-                </Grid>
-            </Grid>
-    
-            <form noValidate>
-    
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="email"
-                            label="email address"
-                            name="email"
-                            autoComplete="email"
-                        />
+        <>
+            {!isLoggedIn &&
+                <Container component="main" maxWidth="xs" style={{ margin: "200px auto" }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography component="h1" variant="h5">
+                                로그인
+                            </Typography>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            name="password"
-                            label="on your password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            onClick={loginHandler}
-                        >
-                            로그인
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
-        </Container>
+                    <form noValidate>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="email address"
+                                    name="email"
+                                    autoComplete="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="on your password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={loginHandler}
+                                >
+                                    로그인
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Container>
+            }
+            <CustomSnackBar 
+                open={open}
+            />
+        </>
       );
 }
 
