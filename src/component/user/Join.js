@@ -14,8 +14,9 @@ import './Join.scss';
 
 const Join = () => {
 
+    //getElementById와같게 요소속성으로 ref={$fileTag}을 넣어준다.(지정하기위해)
     //useRef로 태그 참조하기
-    const $fileTag = useRef();
+    const $fileTag = useRef(); 
 
     //리다이렉트 사용하기
     const redirection = useNavigate();
