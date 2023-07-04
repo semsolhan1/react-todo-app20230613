@@ -262,7 +262,7 @@ const Join = () => {
         //FormData 객체를 활용해서.
         const userFormData = new FormData();
         userFormData.append('user', userJsonBlob);
-        userFormData.append('profileImge', $fileTag.current.files[0]);
+        userFormData.append('profileImage', $fileTag.current.files[0]);
 
         fetch(API_BASE_URL, {
             method: 'POST',
